@@ -28,12 +28,12 @@ const login = (req,res) => {
                 res.status(200).json({userId : findeduser._id, token : jsontoken})
             }
             else if(!result){
-                res.status(401).send({error})
+                res.status(401).send({err})
             }
             else if (err) {
                 console.log(err)
                 // revoir ca mais sinon fini
-                res.status(500).send({error})
+                res.status(500).send({err})
             }
         })
     })
