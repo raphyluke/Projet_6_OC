@@ -10,11 +10,11 @@ require('dotenv').config()
 // en .env avec phrase jwt
 mongoose.connect(process.env.MONGO_ADRESS)
 
-var jsonParser = bodyParser.json()
 
+app.use(express.json())
 app.use(cors())
 // route de connexion
-
+app.use("/images", express.static("./images"))
 app.use("/api/auth", authRoutes)
 // route des sauces
 app.use("/api/sauces", saucesRoutes)

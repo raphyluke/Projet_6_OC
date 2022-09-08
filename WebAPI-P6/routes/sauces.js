@@ -6,6 +6,8 @@ const verifyToken = require("../middleware/verifyToken")
 
 const multer = require("../middleware/multer")
 
+
+
 router.get("/", verifyToken , saucesController.getAllSauces)
 
 router.get("/:id", verifyToken ,saucesController.getSauceById)

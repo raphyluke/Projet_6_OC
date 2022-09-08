@@ -20,18 +20,20 @@ const signup = (req,res) => {
 const login = (req,res) => {
     var user = modelsUser.findOne({email : req.body.email})
     .then(findeduser => {
-        var email = req.body.email
         var password = req.body.password
         bcrypt.compare(password, findeduser.password, (err, result) => {
-            if (result === true){
+            if (result){
                 // connexion avec JWT
-                var jsontoken = jwt.sign({userId : findeduser._id}, "piiquantesaucewebapi")
+                var jsontoken = jwt.sign({userId : findeduser._id}, "piiquantesaucewebapi", {expiresIn: "24h"})
                 res.status(200).json({userId : findeduser._id, token : jsontoken})
+            }
+            else if(!result){
+                res.status(401).send({error})
             }
             else if (err) {
                 console.log(err)
                 // revoir ca mais sinon fini
-                res.status(500).send({message : "Email ou mot de passe incorrecte"})
+                res.status(500).send({error})
             }
         })
     })
