@@ -19,4 +19,6 @@ app.use("/api/auth", authRoutes)
 // route des sauces
 app.use("/api/sauces", saucesRoutes)
 
-app.listen(3000)
+app.listen(3000, () => {
+    console.log("Server started")
+})

@@ -12,7 +12,7 @@ const modelsSauceSchema = new Schema({
     likes : Number,
     dislikes : Number,
     usersLiked : {type: Array, required : true, default : []},
-    usersDisliked : {type: Array, required : true, default : []}
+    usersDisliked : {type: Array, required : true, default : []},
 })
 
 const modelsSauce = mongoose.model("modelsSauce", modelsSauceSchema)

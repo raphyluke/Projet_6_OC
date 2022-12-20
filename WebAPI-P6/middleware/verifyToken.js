@@ -1,11 +1,19 @@
-module.exports = function verifyToken(req,res,next){
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+module.exports = (req,res,next) => {
     const bearerHeader = req.headers['authorization'];
-    if (typeof bearerHeader !== 'undefined') {
-        const bearer = bearerHeader.split(" ");
-        const bearerToken = bearer[1];
-        req.token = bearerToken;
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    try {
+        const decoded = jwt.verify(req.token, process.env.BCRYPTPASSWORD)
+        req.userData = decoded
         next()
-    } else {
-        res.sendStatus(403)
+    }
+    catch (error) {
+        return res.status(401).json({
+            message: 'Auth failed'
+        })
     }
 }

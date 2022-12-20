@@ -12,8 +12,8 @@ const signup = (req,res) => {
             console.log(err)
         };
         const user = new modelsUser({email : email, password : hash})
-        user.save();
-        res.status(200).json({message : "Le compte a été crée"})
+        user.save().then(() => res.status(201).json({message : "Utilisateur enregistré"}))
+        .catch(error => res.status(400).json({error}))
     })
 }
 
@@ -37,6 +37,7 @@ const login = (req,res) => {
             }
         })
     })
+    .catch(error => res.status(500).json({error}))
 }
 
 module.exports = {signup, login}
